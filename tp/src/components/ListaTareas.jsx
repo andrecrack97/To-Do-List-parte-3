@@ -1,27 +1,40 @@
-import Tarea from "./Tarea";
+import React, { useState } from 'react';
+import Tarea from './Tarea';
+import '../estilos/ListaTareas.css';
 
-function ListaTareas({ tareas, setTareas }) {
-  const toggleCompletada = (id) => {
-    setTareas(prev =>
-      prev.map(t => (t.id === id ? { ...t, completada: !t.completada } : t))
-    );
-  };
+function ListaTareas({ tareas, agregarTarea, completarTarea, eliminarTarea }) {
+  const [input, setInput] = useState('');
 
-  const eliminarTarea = (id) => {
-    setTareas(prev => prev.filter(t => t.id !== id));
+  const manejarEnvio = e => {
+    e.preventDefault();
+    if (input.trim()) {
+      agregarTarea(input);
+      setInput('');
+    }
   };
 
   return (
-    <ul className="lista-tareas">
-      {tareas.map(t => (
+    <div className="lista-tareas">
+      <form onSubmit={manejarEnvio} className="formulario">
+        <input
+          type="text"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Agregar una nueva tarea"
+        />
+        <button type="submit">Agregar</button>
+      </form>
+      {tareas.map(tarea => (
         <Tarea
-          key={t.id}
-          tarea={t}
-          toggleCompletada={toggleCompletada}
+          key={tarea.id}
+          id={tarea.id}
+          texto={tarea.texto}
+          completada={tarea.completada}
+          completarTarea={completarTarea}
           eliminarTarea={eliminarTarea}
         />
       ))}
-    </ul>
+    </div>
   );
 }
 
