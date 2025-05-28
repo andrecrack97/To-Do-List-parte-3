@@ -1,148 +1,117 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
 body {
+    font-family: 'Russo One', sans-serif;
+    background: linear-gradient(135deg, #00008B, #FFD700);
+    color: white;
     margin: 0;
-    font-family: 'Arial Black', sans-serif;
-    background: linear-gradient(to right, #1b1464, #fddc09);
-    color: #fff;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-  }
-  
-  .contenedor {
-    background-color: #000066;
-    padding: 30px;
+    height: 100vh;
+    text-transform: uppercase;
+}
+
+.contenedor {
+    background: #00008B;
+    padding: 20px;
     border-radius: 15px;
-    border: 3px solid #fddc09;
-    box-shadow: 0 0 20px #fddc09;
+    box-shadow: 0 0 15px #FFD700;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-    color: #fddc09;
-    text-shadow: 2px 2px 2px #000;
-  }
-  
-  .input-group {
+    border: 5px solid #FFD700;
+}
+
+h1 {
+    font-size: 32px;
+    color: #FFD700;
+    text-shadow: 2px 2px 5px black;
+}
+
+.entrada-tarea {
     display: flex;
-    margin-bottom: 15px;
-  }
-  
-  .input-group input {
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.entrada-tarea input {
     flex: 1;
     padding: 10px;
+    border: 3px solid #FFD700;
+    border-radius: 8px;
+    background: #222;
+    color: white;
     font-size: 16px;
-    border: none;
-    border-radius: 5px 0 0 5px;
-  }
-  
-  .boton {
-    background-color: #fddc09;
-    color: #000;
-    border: none;
+}
+
+button {
     padding: 10px 15px;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 5px;
+    border: none;
+    background-color: #FFD700;
+    color: #00008B;
     cursor: pointer;
-  }
-  
-  .filtros {
-    margin-bottom: 15px;
-  }
-  
-  .lista-tareas {
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #FFA500;
+    box-shadow: 0 0 10px #FFD700;
+    transform: scale(1.05);
+}
+
+.filtros {
+    margin-bottom: 10px;
+}
+
+.filtros button {
+    background-color: #FFD700;
+    color: #00008B;
+}
+
+ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-  }
-  
-  .tarea {
-    padding: 10px;
-    background-color: #003366;
-    margin: 5px 0;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .tarea.completada {
-    text-decoration: line-through;
-    background-color: #004c99;
-  }
-  
-  .eliminar {
-    margin-top: 15px;
-    background-color: red;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-  }
-  .tarea {
+}
+
+ul li {
+    padding: 12px;
+    background: #222;
+    border: 3px solid #FFD700;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #003366;
-    margin: 5px 0;
-    border-radius: 5px;
-  }
-  
-  .tarea.completada .texto-tarea {
-    text-decoration: line-through;
-    opacity: 0.7;
-  }
-  
-  .texto-tarea {
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+ul li span {
     flex-grow: 1;
     text-align: left;
-  }
-  
-  .acciones {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .boton-icono {
-    background-color: #fddc09;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .boton-icono.eliminar {
-    background-color: red;
-    color: white;
-  }
-  
-  .texto-tarea {
-    color: white;
-    font-weight: bold;
-  }
-  
-  .texto-tarea.completada {
+}
+
+ul li.completada span {
     text-decoration: line-through;
-    opacity: 0.6;
-  }
-  .botones button {
-    background-color: #FFD700; 
-    color: #000066;           
-    font-weight: bold;
-    border: none;
-    margin-left: 5px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 2px 2px 0 #000066;
-    transition: transform 0.1s ease-in-out;
-  }
-  
-  .botones button:hover {
-    transform: scale(1.1);
-  }
-    
+    color: #FFD700;
+}
+
+.botones-tarea {
+    display: flex;
+    gap: 10px;
+}
+
+#eliminarCompletadas {
+    margin-top: 15px;
+    background-color: #f9fd00;
+}
+
+#eliminarCompletadas:hover {
+    background-color: #1909ee;
+    box-shadow: 0 0 10px #1909ee;
+}

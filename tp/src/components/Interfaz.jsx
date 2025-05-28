@@ -1,62 +1,40 @@
-import { useState, useEffect } from "react";
-import ListaTareas from "./ListaTareas";
-import Boton from "./Boton";
+import { useState } from 'react';
 
-function Interfaz() {
-  const [tareas, setTareas] = useState([]);
-  const [nuevaTarea, setNuevaTarea] = useState("");
-  const [filtro, setFiltro] = useState("todas");
 
-  useEffect(() => {
-    const tareasGuardadas = JSON.parse(localStorage.getItem("tareas")) || [];
-    setTareas(tareasGuardadas);
-  }, []);
+const Interfaz = ({ agregarTarea, eliminarCompletadas, setFiltro }) => {
+  const [texto, setTexto] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("tareas", JSON.stringify(tareas));
-  }, [tareas]);
-
-  const agregarTarea = () => {
-    if (nuevaTarea.trim() === "") return;
-    const tarea = { id: Date.now(), texto: nuevaTarea, completada: false };
-    setTareas([...tareas, tarea]);
-    setNuevaTarea("");
+  const manejarEnvio = () => {
+    if (texto.trim()) {
+      agregarTarea(texto);
+      setTexto("");
+    }
   };
-
-  const eliminarCompletadas = () => {
-    setTareas(tareas.filter(t => !t.completada));
-  };
-
-  const tareasFiltradas = tareas.filter(t =>
-    filtro === "todas" ? true :
-    filtro === "pendientes" ? !t.completada : t.completada
-  );
 
   return (
-    <div className="contenedor">
-      <h1>LISTA DE TAREAS<br/>XENEIZE</h1>
-      <div className="input-group">
+    <>
+      <h1>Lista de Tareas Xeneize</h1>
+      <div className="entrada-tarea">
         <input
           type="text"
           placeholder="Agregar una nueva tarea"
-          value={nuevaTarea}
-          onChange={(e) => setNuevaTarea(e.target.value)}
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
         />
-        <Boton texto="Agregar" onClick={agregarTarea} />
+        <button onClick={manejarEnvio}>Agregar</button>
       </div>
+
       <div className="filtros">
-        <Boton texto="Todas" onClick={() => setFiltro("todas")} />
-        <Boton texto="Pendientes" onClick={() => setFiltro("pendientes")} />
-        <Boton texto="Completadas" onClick={() => setFiltro("completadas")} />
+        <button onClick={() => setFiltro("todas")}>Todas</button>
+        <button onClick={() => setFiltro("pendientes")}>Pendientes</button>
+        <button onClick={() => setFiltro("completadas")}>Completadas</button>
       </div>
-      <ListaTareas tareas={tareasFiltradas} setTareas={setTareas} />
-      <button className="eliminar" onClick={eliminarCompletadas}>
+
+      <button id="eliminarCompletadas" onClick={eliminarCompletadas}>
         Eliminar Completadas
       </button>
-    </div>
+    </>
   );
-}
-
-
+};
 
 export default Interfaz;

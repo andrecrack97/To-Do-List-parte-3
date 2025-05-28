@@ -1,52 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import ListaTareas from "./components/ListaTareas";
+import { useEffect, useState } from 'react';
+import Interfaz from './components/Interfaz';
+import ListaTarea from './components/ListaTareas';
+import './index.css';
+import './Styles.css';
 
-
-function App() {
-  const [tareas, setTareas] = useState([]);
+const App = () => {
+  const [tareas, setTareas] = useState(() => {
+    return JSON.parse(localStorage.getItem("tareas")) || [];
+  });
+  const [filtro, setFiltro] = useState("todas");
 
   useEffect(() => {
-    const tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
-    setTareas(tareasGuardadas);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('tareas', JSON.stringify(tareas));
+    localStorage.setItem("tareas", JSON.stringify(tareas));
   }, [tareas]);
 
   const agregarTarea = (texto) => {
-    const nuevaTarea = {
-      id: Date.now(),
-      texto,
-      completada: false
-    };
-    setTareas([nuevaTarea, ...tareas]);
+    setTareas([...tareas, { texto, completada: false }]);
   };
 
-  const completarTarea = (id) => {
-    const tareasActualizadas = tareas.map(tarea =>
-      tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea
-    );
-    setTareas(tareasActualizadas);
+  const completarTarea = (index) => {
+    const nuevasTareas = [...tareas];
+    nuevasTareas[index].completada = !nuevasTareas[index].completada;
+    setTareas(nuevasTareas);
   };
 
-  const eliminarTarea = (id) => {
-    const tareasActualizadas = tareas.filter(tarea => tarea.id !== id);
-    setTareas(tareasActualizadas);
+  const eliminarTarea = (index) => {
+    const nuevasTareas = tareas.filter((_, i) => i !== index);
+    setTareas(nuevasTareas);
+  };
+
+  const eliminarCompletadas = () => {
+    setTareas(tareas.filter(t => !t.completada));
   };
 
   return (
-    <div className="App">
-      <h1>LISTA DE TAREAS XENEIZE</h1>
-      <ListaTareas
-        tareas={tareas}
+    <div className="contenedor">
+      <Interfaz
         agregarTarea={agregarTarea}
+        eliminarCompletadas={eliminarCompletadas}
+        setFiltro={setFiltro}
+      />
+      <ListaTarea
+        tareas={tareas}
         completarTarea={completarTarea}
         eliminarTarea={eliminarTarea}
+        filtro={filtro}
       />
     </div>
   );
-}
+};
 
 export default App;

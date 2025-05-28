@@ -1,41 +1,26 @@
-import React, { useState } from 'react';
-import Tarea from './Tarea';
-import '../estilos/ListaTareas.css';
+import Tareas from './Tarea';
 
-function ListaTareas({ tareas, agregarTarea, completarTarea, eliminarTarea }) {
-  const [input, setInput] = useState('');
 
-  const manejarEnvio = e => {
-    e.preventDefault();
-    if (input.trim()) {
-      agregarTarea(input);
-      setInput('');
-    }
+
+const ListaTarea = ({ tareas, completarTarea, eliminarTarea, filtro }) => {
+  const filtrar = (tarea) => {
+    if (filtro === "pendientes") return !tarea.completada;
+    if (filtro === "completadas") return tarea.completada;
+    return true;
   };
 
   return (
-    <div className="lista-tareas">
-      <form onSubmit={manejarEnvio} className="formulario">
-        <input
-          type="text"
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          placeholder="Agregar una nueva tarea"
-        />
-        <button type="submit">Agregar</button>
-      </form>
-      {tareas.map(tarea => (
-        <Tarea
-          key={tarea.id}
-          id={tarea.id}
-          texto={tarea.texto}
-          completada={tarea.completada}
-          completarTarea={completarTarea}
-          eliminarTarea={eliminarTarea}
+    <ul>
+      {tareas.filter(filtrar).map((tarea, index) => (
+        <Tareas
+          key={index}
+          tarea={tarea}
+          completar={() => completarTarea(index)}
+          eliminar={() => eliminarTarea(index)}
         />
       ))}
-    </div>
+    </ul>
   );
-}
+};
 
-export default ListaTareas;
+export default ListaTarea;
