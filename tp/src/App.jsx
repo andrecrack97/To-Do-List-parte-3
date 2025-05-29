@@ -3,6 +3,9 @@ import Interfaz from './components/Interfaz';
 import ListaTarea from './components/ListaTareas';
 import './index.css';
 import './Styles.css';
+import roman from './assets/fotos/roman.jpg';
+import escudo from './assets/fotos/escudo.jpg';
+
 
 const App = () => {
   const [tareas, setTareas] = useState(() => {
@@ -34,20 +37,27 @@ const App = () => {
   };
 
   return (
-    <div className="contenedor">
-      <Interfaz
-        agregarTarea={agregarTarea}
-        eliminarCompletadas={eliminarCompletadas}
-        setFiltro={setFiltro}
-      />
-      <ListaTarea
-        tareas={tareas}
-        completarTarea={completarTarea}
-        eliminarTarea={eliminarTarea}
-        filtro={filtro}
-      />
+    <div className="contenedor-general">
+      <img src={roman} alt="roman" height="400" width="330" className="img-costado" />
+  
+      <div className="contenedor">
+        <Interfaz
+          agregarTarea={agregarTarea}
+          eliminarCompletadas={eliminarCompletadas}
+          setFiltro={setFiltro}
+        />
+        <ListaTarea
+          tareas={tareas}
+          completarTarea={completarTarea}
+          eliminarTarea={eliminarTarea}
+          filtro={filtro}
+        />
+      </div>
+  
+      <img src={escudo} alt="Escudo de Boca Juniors" height="400" width="400" className="img-costado" />
     </div>
   );
+  
 };
 
 export default App;

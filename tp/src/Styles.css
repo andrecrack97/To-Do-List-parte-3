@@ -115,3 +115,16 @@ ul li.completada span {
     background-color: #1909ee;
     box-shadow: 0 0 10px #1909ee;
 }
+
+.contenedor-general {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .img-costado {
+    object-fit: contain;
+  }
+  
